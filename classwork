@@ -1,0 +1,25 @@
+print("Hello world")
+print("Yousif")
+print("22")
+petname="loki"
+petage="2"
+print(petname)
+print(petage)
+#variables for games
+Amongus = 12
+Eldenring = 60
+ProjectGrove = 20
+USTax = "1.14"
+
+number = int( input("What is your number: "))
+print(number)
+if number <= 100:
+    print("number is small")
+elif number >=1000:
+        print("Number is not big enough")
+
+number =int(input("what is your number: "))
+if number % 2 == 0:
+    print("This number is even")
+else:
+    print("This number is odd")
