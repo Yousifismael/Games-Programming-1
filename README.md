@@ -19,7 +19,7 @@ name = input("Choose a monster name: ")
 add1 = "elle"
 add2 = "ling"
 prefix = "baby"
-last_letter = "monster_name" [-1]
+last_letter = name [-1]
 name_length = len(name)
 
 if name_length >= 3:
