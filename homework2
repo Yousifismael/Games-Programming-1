@@ -1,0 +1,27 @@
+# Exercise 1
+x = ['mix', 'xyz', 'apple', 'xanadu', 'rovio']
+x1 = ['xanadu', 'xyz']
+x2 = ['mix', 'apple', 'rovio']
+
+print(x1 + x2)
+
+# Exercise 2
+counter = 0
+words = ['xxx', 'aaa', 'r5t6yy', 'g', 'wow']
+for i in words:
+    if len(i) >= 2 and i[0] == i[-1]:
+        counter += 1
+print(counter)
+
+# Exercise 3
+count = 0
+answer = 'monkey'
+password = input('Guess the password: ').lower()
+while count < 3:
+    if password == answer:
+        print("Correct!")
+    elif password != answer:
+        count += 1
+        break
+else:
+    print('You lost')
