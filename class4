@@ -1,0 +1,43 @@
+numbers = input('Give me a list of numbers:')
+evenNumbers = [ ]
+listt = numbers.split()
+print(listt)
+for i in listt:
+    if int(i) % 2 == 0:
+        evenNumbers.append(i)
+print(evenNumbers)
+
+translations = {'mountain': "blenon", 'bread': "havon", 'friend': "raqiros", 'horse': "anne"}
+print(translations['bread'])
+
+
+
+available_items = {"health potion": 10, "cake": 5, "green elixir": 20, "lombas bread": 25, "bogweed":
+15, "rabbit stew": 30}
+health_points = 20
+health_points += available_items["cake"]
+available_items.pop("cakedffg",0)
+print(health_points)
+
+import random
+
+tarot = { 1:  "The Magician", 2:  "The High Priestess", 3:  "The Empress", 4: "The Emperor", 5: "The Hierophant", 6:  "The Lovers", 7:  "The Chariot", 8: "Strength", 9:  "The Hermit", 10: "Wheel of Fortune", 11: "Justice", 12:  "The Hanged Man", 13: "Death", 14:  
+"Temperance", 15: "The Devil", 16:  "The Tower", 17:  "The Star", 18: "The Moon", 19: 
+"The Sun", 20:  "Judgement", 21:  "The World", 22: "The Fool"}
+
+fortune = {}
+fortune["past"] = ""
+fortune["present"] = ""
+fortune["future"] = ""
+for key,val in fortune.items():
+    print(key, val)
+
+for key in fortune:
+   remaining_cards = list(tarot.keys())
+   choice = random.choice(remaining_cards)
+   fortune[key] = tarot.pop(choice)
+ 
+
+
+for k, val in fortune.items():
+     print("Your %s is the %s card" % (k, val))
