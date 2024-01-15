@@ -1,0 +1,73 @@
+#Class definitions
+class Cheerleader:
+    def __init__(self, name, team):
+        self.name = name
+        self.team = team
+    def shout(self):
+        print("My name is {}, let's go {}".format(self.name, self.team))
+#game code
+cheerleader1 = Cheerleader("Lucy", "brunel")
+cheerleader1.shout()
+cheerleader2 = Cheerleader("Abby", "brunel")
+cheerleader2.shout()
+
+class Enemy:
+    weapons = {"Dagger": 10,"Pistol": 20, "Shield": 30}
+    def __init__(self,name, homeland,special_ability):
+        self.name = name
+        self.homeland = homeland
+        self.special_ability = special_ability
+        self.weapon = ""
+        
+    def equipweapon(self, choice):
+        ##if weapon exist in weapon list
+        if choice in Enemy.weapons:
+            ##self.weapon =choice
+            self.weapon = choice
+            
+    def Describe_Enemy(self):
+        print("Name: {}, Homeland: {}, Special ability: {}, Weapon:{}".format(self.name, self.homeland,self.special_ability, self.weapon))
+
+
+enemy1 = Enemy("Rat","Sewers","Biting")
+#equip weapon
+enemy1.equipweapon("Dagger")
+#announce themself
+enemy1.Describe_Enemy()
+#enemy2 = Enemy()
+
+import random
+
+class Collectables:
+    def __init__(self):
+        self.value = random.randint(20, 100)
+        
+    
+class Potions(Collectables):
+    potioncolours = ["Red", "Green", "Blue"]
+    def __init__(self):
+        Collectable.__init__(self)
+        self.colour = Potions.potioncolours[random.randint(0,2)]
+ 
+total_points = 0
+while total_points < 600:
+    user_input = input("Number: ")
+    if not user_input.isdigit():
+        print("Not a number")
+        continue
+    user_input = int(user_input)
+    if user_input > 6 :
+        print("too big")
+        continue
+    
+    elif user_input <= 3:
+        coin = Collectables()
+        total_points += coin.value
+        print(total_points)
+        print("coin")
+        continue
+    else:
+        
+        print("potion")
+        pass
+        
