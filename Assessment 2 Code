@@ -1,0 +1,378 @@
+import random
+
+
+def PathChoice():
+    print("""
+    Type 'north' to head deeper into the labyrinth
+    Type 'west' to head into the snowy path
+    Type 'east' to head into the spider-webs path""")
+    while True:
+        path_1 = input("Choose a path: ").lower()
+        if path_1 == "north":
+            print(north_path1)
+            print(" ")
+            print("Level 2: The Enchanted Pool")
+            NorthPath()
+            break
+        elif path_1 == 'west':
+            print(west_path1)
+            print(" ")
+            print("Level 2: The Chamber of Secrets")
+            WestPath()
+            break
+        elif path_1 == "east":
+            print(east_path1)
+            print(" ")
+            print("Level 2: The Whispering Walls")
+            print(" ")
+            print("You start navigating through this tunnel with cautious, and suddenly a spider appears.")
+            EastPath()
+            break
+        else:
+            print("That is not a viable path to take.")
+
+
+# North Pathway
+# The Enchanted Pool
+def NorthPath():
+    print("""
+    You have reached the entrance for the enchanted pool, but a massive boulder is blocking your path. Fortunately,
+    you have some explosives in your backpack! So you can either blow up the boulder or head back and take a
+    different pathway""")
+    print(" ")
+    print("""
+    Choices:
+    A. Blow up the boulder
+    B. Head back and take a different pathway""")
+    while True:
+        choice = input("Choice: ").lower()
+        if choice == "a":
+            print("You blow up the boulder, but the dungeon collapses and kills you!")
+            break
+        elif choice == "b":
+            print("You head back")
+            PathChoice()
+            break
+        elif choice != "a" and choice != "b":
+            print("That is not a choice that can be made")
+
+
+# East Pathway
+# The Whispering Walls
+def EastPath():
+    Battle1 = """
+    Instructions:
+    1. Light attack: 10 Damage
+    2. Heavy attack: 30 Damage
+    3. Dodge: Dodges attacks"""
+    print(Battle1)
+    light_attack = 10
+    heavy_attack = 30
+    spider_health = 50
+
+    player_health = 100
+    print("Player Health:", player_health)
+    print("Spider Health:", spider_health)
+    # First battle to teach the player how the fights work
+    while True:
+        player_move1 = input("Choose your move: ").lower()
+        # If statement for the player attacks
+        if player_move1 == "light attack":
+            print("You strike the spider for 10 damage")
+            spider_health -= light_attack
+            print("Spider Health:", spider_health)
+        elif player_move1 == "heavy attack":
+            print("you strike the spider for 30 damage")
+            spider_health -= heavy_attack
+            print("Spider Health:", spider_health)
+        elif player_move1 == "dodge":
+            print("The spider is not attacking you")
+        else:
+            print("That move is too difficult for you!")
+        # If statement for the spider's death
+        if spider_health <= 0:
+            print("Spider has been killed.")
+            print(" ")
+            print("You keep moving forward.")
+            print(" ")
+            print("Level 3: Forgotten Grotto")
+            print("Strange movement all around you... three spiders approaching!")
+            break
+    # A dictionary that contains the spiders health and attacks
+    spiders = {"Total spiders health": 150, "attack": 10, "heavy attack": 30, "recover": 0, "recover2": 0}
+    # Three spider moves that will be used to generate the spider attacks
+    attacks = [spiders["attack"], spiders["recover"], spiders["recover2"]]
+    print("""
+    Instructions:
+    1. Check what each spider's next move is, if it's 10 then the enemy will attack
+    2. Attacking an enemy will make the other ones attack you 
+    3. Dodging an enemy will evade all attacks coming towards you
+    4. If the spiders are recovering they deal 0 damage and won't hurt you 
+    5. Performing a heavy attack while other spiders are attacking will damage you more
+    6. Defeat all three enemies to proceed safely""")
+
+    while True:
+        # Random attacks generated
+        random_attack1 = random.choice(attacks)
+        random_attack2 = random.choice(attacks)
+        random_attack3 = random.choice(attacks)
+        print("First spider: ", random_attack1)
+        print("Second spider: ", random_attack2)
+        print("Third spider:", random_attack3)
+        player_move = input("What is your next move: ").lower()
+        # Battle with spiders
+        if player_move == "light attack":
+            print("You attack the spiders")
+            spiders["Total spiders health"] -= light_attack
+            if random_attack1 == spiders["attack"]:
+                player_health -= spiders["attack"]
+            if random_attack2 == spiders["attack"]:
+                player_health -= spiders["attack"]
+            if random_attack3 == spiders["attack"]:
+                player_health -= spiders["attack"]
+            if random_attack1 == spiders["attack"] or random_attack1 == spiders["recover"] or random_attack1 == spiders[
+                    "recover2"]:
+                print("Player health: ", player_health)
+                print("Spiders health: ", spiders["Total spiders health"])
+        # elif statement for the player dodge
+        elif player_move == "dodge":
+            print("You dodge the spider's attacks")
+            print("Player health: ", player_health)
+            print("Spiders health: ", spiders["Total spiders health"])
+        # Player heavy attacks
+        elif player_move == "heavy attack":
+            print("You perform a heavy attack")
+            spiders["Total spiders health"] -= heavy_attack
+            # Spider attacks on the player health
+            if random_attack1 == spiders["attack"]:
+                player_health -= spiders["heavy attack"]
+            if random_attack2 == spiders["attack"]:
+                player_health -= spiders["heavy attack"]
+            if random_attack3 == spiders["attack"]:
+                player_health -= spiders["heavy attack"]
+            # If statement to always show the player's health as well as the enemy's health
+            if random_attack1 == spiders["attack"] or random_attack1 == spiders["recover"] or random_attack1 == spiders[
+                    "recover2"]:
+                print("Player health: ", player_health)
+                print("Spiders health: ", spiders["Total spiders health"])
+        else:
+            print("Invalid move")
+        # Lose condition
+        if player_health <= 0:
+            print("You lose!")
+            quit()
+        if spiders["Total spiders health"] <= 0:
+            print("Spiders have been defeated")
+            print(" ")
+            print("Level 4: Venomous Hollow")
+            print(" ")
+            print(
+                "You continue moving forward, and stumble across a giant room where the queen of spiders is waiting for you!")
+            break
+
+    Spider_Boss = """
+    Instructions:
+    1. You have three weapons in your inventory and spider queen will be immune to two of them
+    2. Defeat the queen to progress
+    3. Spider queen will attack every 4 turns"""
+    # Dictionary for the boss fight
+    boss_fight = {"spider_queen_health": 300, "spider_queen_damage": 30, "spiders_damage": 50,
+                  "weapon1": "Flamethrower: 20 Damage", "weapon1_damage": 20,
+                  "weapon2": "Poison Blade: 30 Damage", "weapon2_damage": 30,
+                  "weapon3": "Venomous Hammer: 50 Damage", "weapon3_damage": 50,
+                  "health_pot": "10 Health Potions: 20 Heal", "health_pot_heal": 20, "health_pot_count": 10}
+    inventory = [boss_fight["weapon1"], boss_fight["weapon2"], boss_fight["weapon3"], boss_fight["health_pot"]]
+    queen_weakness = [boss_fight["weapon1"], boss_fight["weapon2"], boss_fight["weapon3"]]
+    player_health2 = 100
+    # Posting the instructions
+    print(Spider_Boss)
+    print(" ")
+    # Posting the player's inventory
+    print("Inventory:")
+    for item in inventory:
+        print(" ", item)
+    # Variable to get the queen's move every 4 rounds
+    queen = 0
+    # While loop to get the player input and the queen's moves
+    while True:
+        queen += 1
+        queen_random = random.choice(queen_weakness)
+        fight2 = input("What is your move: ").lower()
+        # If statement to let the player know if they put a wrong input
+        if fight2 != "flamethrower" and fight2 != "poison blade" and fight2 != "venomous hammer" and fight2 != "heal":
+            print("That is not a weapon")
+        # Fighting with the first weapon
+        if fight2 == "flamethrower" and queen_random == boss_fight["weapon1"]:
+            print("You attack the queen with your flamethrower")
+            boss_fight["spider_queen_health"] -= 20
+        elif fight2 == "flamethrower" and queen_random != boss_fight["weapon1"]:
+            print("The queen is immune to that weapon!")
+        # Fighting with the second weapon
+        if fight2 == "poison blade" and queen_random == boss_fight["weapon2"]:
+            print("You attack the queen with your blade")
+            boss_fight["spider_queen_health"] -= 30
+        elif fight2 == "poison blade" and queen_random != boss_fight["weapon2"]:
+            print("The queen is immune to that weapon!")
+        # Fighting with the third weapon
+        if fight2 == "venomous hammer" and queen_random == boss_fight["weapon3"]:
+            print("You attack the queen with your hammer")
+            boss_fight["spider_queen_health"] -= 50
+        elif fight2 == "venomous hammer" and queen_random != boss_fight["weapon3"]:
+            print("The queen is immune to that weapon!")
+        # Healing
+        if fight2 == "heal" and boss_fight["health_pot_count"] > 1:
+            player_health2 += boss_fight["health_pot_heal"]
+            boss_fight["health_pot_count"] -= 1
+        elif fight2 == "heal" and boss_fight["health_pot_count"] == 0:
+            print("You are out of healing potions")
+        # Showing the queen's health and the player's health
+        if queen_random == boss_fight["weapon1"] or queen_random == boss_fight["weapon2"] or queen_random == boss_fight[
+                "weapon3"]:
+            print("Player health: ", player_health2)
+            print("Queen health: ", boss_fight["spider_queen_health"])
+        # Queen attacking every 4 rounds
+        if queen % 4 == 0:
+            player_health2 -= boss_fight["spider_queen_damage"]
+        # Lose and win conditions
+        if player_health <= 0:
+            print("You lose!")
+            quit()
+        elif boss_fight["spider_queen_health"] <= 0:
+            print("The queen is now dead!")
+            break
+    print("Victory!")
+    print(" ")
+    print("""
+    You have reached the center of the labyrinth! Your journey has been epic, your challenges were formidable,but in the
+    end you have emerged victorious! Take pride in your achievements, relish the glory, and remember: in the world of games, 
+    you are the ultimate champion! Game on, and may your future quests be as triumphant as this one!
+    """)
+
+
+# West Pathway
+# The chamber of secrets
+def WestPath():
+    print("You head towards the snowy path shivered in the cold, with the wind blowing towards you"
+          " making a slight echo. Suddenly you stumble across a strange wall with gems on it, and a"
+          " strange locked door")
+    print("""
+    Instructions:
+    1. You have 3 different colored stones: Red, Green, and Blue
+    2. You must find the correct sequence of colors to open the locked door
+    3. You have only 3 tries to get the right order or else the order of the colors will change""")
+    # Dictionary for the gems
+    gems = {"blue": 2, "red": 3, "green": 1}
+    # Sorting the gem colors in order according to their values
+    correct_order = sorted(gems.keys(), key=gems.get)
+    # Variable to keep count of how many attempts the player has
+    attempts = 0
+    while True:
+        puzzle1 = input("Gems order: ").lower().split()
+        attempts += 1
+        if puzzle1 == correct_order:
+            print("Correct!")
+            print("Door opens and you keep moving forward")
+            print(" ")
+            print("Level 3: Crystal Abyss")
+            break
+        else:
+            print("Incorrect order!")
+        # If statement to shuffle the order of colors
+        if attempts % 3 == 0:
+            print("Ran out of attempts. Order has been changed")
+            random.shuffle(correct_order)
+
+    print(
+        "As you move forward, you reach another room that is filled with freezing cold water, and an ice bridge that takes"
+        " you straight to another locked door. The door has a riddle written on it.")
+    print(
+        "Riddle: I speak without a mouth and hear without ears. I have no body, but I come alive with wind. What am I?")
+    print("""
+    Instructions:
+    1. Guess the answer to the riddle
+    2. You have 3 guesses or you will lose the game
+    3. A hint can be found in the previous level""")
+    answer = "echo"
+    # Variable to keep track of number of attempts
+    wrong_answer = 0
+    while True:
+        guesses = input("Answer: ").lower()
+        wrong_answer += 1
+        if guesses == answer:
+            print("Correct!")
+            print("You walk through the door as it unlocks")
+            print(" ")
+            print("Victory!")
+            break
+        else:
+            print("Incorrect!")
+
+        if wrong_answer % 3 == 0:
+            print("You lose!")
+            quit()
+
+    print(" ")
+    print("""
+    You have reached the center of the labyrinth! Your journey has been epic, your challenges were formidable,but in the
+    end you have emerged victorious! Take pride in your achievements, relish the glory, and remember: in the world of games, 
+    you are the ultimate champion! Game on, and may your future quests be as triumphant as this one!
+    """)
+
+
+story = """ 
+You find yourself standing at the entrance of a mysterious labyrinth on the side of a mountain, a sense of both 
+curiosity and terror fills the air. As you step forward, the entrance seals shut behind you, locking you inside. 
+You have no choice but to go deep into the labyrinth and explore it."""
+objective = ("""
+Objective:
+Navigate through the labyrinth to solve puzzles and defeat enemies and reach the heart of the maze.""")
+instructions = """
+Instructions:
+1. Write your commands  in the form of simple text inputs.
+2. Explore the labyrinth by navigating through directions (north, east, west)
+3. Solve different puzzles.
+4. Fight enemies by collecting different weapons and using different strategies."""
+
+print(story)
+print(objective)
+print(instructions)
+print("")
+print("Level 1: The intersection")
+start = """
+You stand at the entrance of the labyrinth. The path ahead forks into three directions: north, east, and west.
+You look ahead and see a dark tunnel leading deeper into the labyrinth.
+You look east and see a path full of spiderwebs and dim torches.
+You look west and see a snowy path with icicles hanging from the roof.
+Type 'north' to head deeper into the labyrinth
+Type 'west' to head into the snowy path
+Type 'east' to head into the spider-webs path"""
+print(start)
+# Taking player input to choose the pathway they want to take
+north_path1 = "You traverse deeper into the cave"
+west_path1 = "You head towards the snowy path and start feeling a cold breeze coming your way"
+east_path1 = "You go into the path of spiders and start seeing moving objects in the distance"
+
+while True:
+    path1 = input("Choose a path: ").lower()
+    if path1 == "north":
+        print(north_path1)
+        print(" ")
+        print("Level 2: The Enchanted Pool")
+        NorthPath()
+        break
+    elif path1 == 'west':
+        print(west_path1)
+        print(" ")
+        print("Level 2: The Chamber of Secrets")
+        WestPath()
+        break
+    elif path1 == "east":
+        print(east_path1)
+        print(" ")
+        print("Level 2: The Whispering Walls")
+        print(" ")
+        print("You start navigating through this tunnel with cautious, and suddenly a spider appears.")
+        EastPath()
+        break
+    else:
+        print("That is not a viable path to take.")
