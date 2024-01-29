@@ -45,3 +45,37 @@ while True:
   #xpos += 1
   pygame.display.flip()
   pygame.display.update()
+
+# Second Excercise
+class Raindrop:
+    
+  def __init__(self, xpos, ypos):
+      self.xpos = xpos
+      self.ypos = ypos
+      self.speed = 3
+    
+  def raindropFall(self):
+      pygame.draw.circle(screen, (255,200,100), (self.xpos, self.ypos),10,20)
+      self.ypos += self.speed
+    
+    
+# spawn a raindrop
+raindrops = [ ]
+for i in range(10):
+  raindrops.append(Raindrop(randrange(0, screenx), 0))
+
+
+
+clock = pygame.time.Clock()  
+while True:
+  for event in pygame.event.get():
+    if event.type == pygame.QUIT:
+      sys.exit()
+  
+  clock.tick(40)  
+  screen.fill((255,0,0))
+  for raindrop in raindrops:
+    raindrop.raindropFall()
+  pygame.display.flip()
+  pygame.display.update()
+  
