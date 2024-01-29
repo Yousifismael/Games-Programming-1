@@ -1,0 +1,47 @@
+import pygame, sys
+pygame.init()
+pygame.display.set_caption("My first pygame program")
+screenx = 400
+screeny = 400
+screen = pygame.display.set_mode((screenx, screeny))
+# Variables
+xpos = 100
+ypos = 200
+clock = pygame.time.Clock()
+while True:
+  for event in pygame.event.get():
+    if event.type == pygame.QUIT:
+      sys.exit()
+    
+  
+  # Dictionary for pressed keys
+  pressed_key = pygame.key.get_pressed()
+  # Movement for cirlce
+  if pressed_key[pygame.K_LEFT]:
+    if xpos < 0:
+      xpos = 0
+    else:
+      xpos -= 1
+  elif pressed_key[pygame.K_RIGHT]:
+    if xpos >= screenx:
+      xpos = 0
+    else:
+      xpos += 1
+  elif pressed_key[pygame.K_UP]:
+    if ypos < 0:
+      ypos = screeny
+    else:
+      ypos -= 1
+  elif pressed_key[pygame.K_DOWN]:
+    if ypos >= screeny:
+      ypos = 0
+    else:
+      ypos += 1
+  
+  #clock.tick(40)
+  screen.fill((150,255,250))
+  pygame.draw.circle(screen, (255,0,0), (xpos, ypos),50,0)
+  pygame.draw.circle(screen, (255,200,100), (200, 150),50,20)
+  #xpos += 1
+  pygame.display.flip()
+  pygame.display.update()
