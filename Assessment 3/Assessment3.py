@@ -1,5 +1,6 @@
 import pygame, sys, math
 from random import randrange
+import random
 
 pygame.font.get_fonts()
 pygame.mixer.pre_init(44100, -16, 2, 2048)
@@ -35,14 +36,13 @@ font = pygame.font.Font(None, 48)
 # define Cloud
 class MainDish:
     def __init__(self, image, ingredients):
-        self.xpos = 0
-        self.ypos = 0
+        self.xpos = 400
+        self.ypos = 650
         self.image = image
         self.ingredients = ingredients
         self.rect = self.image.get_rect()
         self.rect.x = randrange(screenx - self.rect.width)
         self.rect.y = randrange(screeny - self.rect.height)
-
 
 
 class Ingredient:
@@ -87,12 +87,10 @@ class Player:
                 self.y = screeny - self.sizey
 
         self.rect.y = self.y
+
     def Draw(self):
         self.sprite.set_colorkey((255, 255, 255))
         screen.blit(self.sprite, (self.x, self.y))
-
-
-
 
 
 # spawning main dishes
@@ -110,6 +108,7 @@ ingredients = [
     Ingredient(dough_image, "dough")
 ]
 
+wrongIngredients = []
 # add player and background image
 player = Player()
 background_image = pygame.transform.scale(background_image, (screenx, screeny))
@@ -118,6 +117,8 @@ seconds = 0
 minutes = 0
 score = 0
 MaxFrame = 60
+Dish = [burger, croissant, eggs_bacon]
+
 # w, h = background_image.get_size()
 
 
@@ -132,6 +133,9 @@ while True:
         if event.type == pygame.QUIT:
             sys.exit()
     screen.blit(background_image, (0, 0))
+
+
+
     # player movement
     pressed_key = pygame.key.get_pressed()
 
@@ -147,10 +151,15 @@ while True:
     elif pressed_key[pygame.K_DOWN]:
         player.MoveY(False)
 
+
+
+
+    MainCookingDish = random.choice(Dish)
+
     for ingredient in ingredients:
         if player.rect.colliderect(ingredient.rect):
             # Check if the collected ingredient is required for any main dish
-            for dish in [burger, croissant, eggs_bacon]:
+            for dish in [MainCookingDish]:
                 if ingredient.name in dish.ingredients:
                     # Increase score for collecting the right ingredient
                     score += 10
@@ -158,10 +167,16 @@ while True:
                     # Remove the collected ingredient from the screen
                     ingredients.remove(ingredient)
                     break  # Exit the loop once an ingredient is collected
+                else:
+                    score -= 10
 
-    screen.blit(burger.image, burger.rect)
-    screen.blit(croissant.image, croissant.rect)
-    screen.blit(eggs_bacon.image, eggs_bacon.rect)
+                    wrongIngredients.append(ingredient.name)
+                    print("new list: ", wrongIngredients)
+                    break
+
+    screen.blit(burger.image, (burger.xpos, burger.ypos))
+    screen.blit(croissant.image, (croissant.xpos, croissant.ypos))
+    screen.blit(eggs_bacon.image, (eggs_bacon.xpos, eggs_bacon.ypos))
     ingredients_collected = ()
     # Draw ingredients
     for ingredient in ingredients:
@@ -173,19 +188,13 @@ while True:
         scoreboard_surface = font.render(scoreboard_text, True, (255, 255, 255))
         screen.blit(scoreboard_surface, (10, 680))
 
-
-
-
-
     # background
     # screen.fill((0,0,0))
-    #rollingBack()
+    # rollingBack()
     screen.blit(font.render("Chef Alex", True, (255, 255, 255)), (0, 0))
     screen.blit(font.render("Timer: " + str(math.floor(minutes) + (math.floor(seconds))), True, (255, 255, 255)),
                 ((screenx - 160), 10))
     # screen.blit(font.render())
-
-
 
     # player
     player.Draw()
