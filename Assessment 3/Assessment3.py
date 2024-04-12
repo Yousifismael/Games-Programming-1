@@ -36,7 +36,7 @@ font = pygame.font.Font(None, 48)
 # define Cloud
 class MainDish:
     def __init__(self, image, ingredients):
-        self.xpos = 400
+        self.xpos = 1400
         self.ypos = 650
         self.image = image
         self.ingredients = ingredients
@@ -117,18 +117,38 @@ seconds = 0
 minutes = 0
 score = 0
 MaxFrame = 60
+timer = 50
 Dish = [burger, croissant, eggs_bacon]
 wrongIngredients = []
 MainCookingDish = random.choice(Dish)
+ingredients_collected = []
 # w, h = background_image.get_size()
+
+def reset_game():
+    global MainCookingDish, ingredients, ingredients_collected
+    MainCookingDish = random.choice(Dish)
+    ingredients = [
+        Ingredient(bacon_image, "bacon"),
+        Ingredient(bread_image, "bread"),
+        Ingredient(cheese_image, "cheese"),
+        Ingredient(eggs_image, "eggs"),
+        Ingredient(meat_image, "meat"),
+        Ingredient(dough_image, "dough")
+    ]
+    ingredients_collected = []
 
 
 # Game Loop
 while True:
     clock.tick(MaxFrame)
-    timer += (1 / MaxFrame)
+    #timer += (1 / MaxFrame)
+    timer -= (1 / MaxFrame)
+    if timer <= 0:
+        reset_game()
+        timer = 50
     seconds = timer % 60
     minutes = (seconds / 60) % 60
+
     # print(round(Timer))
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -180,31 +200,41 @@ while True:
                     print("Collected", ingredient.name)
                     # Remove the collected ingredient from the screen
                     ingredients.remove(ingredient)
+                    ingredients_collected.append(ingredient.name)
                     break  # Exit the loop once an ingredient is collected
                 else:
                     score -= 10
 
                     wrongIngredients.append(ingredient.name)
+                    ingredients.remove(ingredient)
                     print("new list: ", wrongIngredients)
                     break
 
 
 
 
-    ingredients_collected = ()
+
     # Draw ingredients
     for ingredient in ingredients:
         screen.blit(ingredient.image, ingredient.rect)
 
         # Draw scoreboard
-        collected_ingredients = [ingredient.name for ingredient in ingredients_collected]
-        scoreboard_text = "Collected Ingredients: " + ", ".join(collected_ingredients)
+
+
+        scoreboard_text = "Score: " + str(score)
+        goalscore_text = "Goal: 300"
+        goalscore_surface = font.render(goalscore_text, True, (255, 255, 255))
         scoreboard_surface = font.render(scoreboard_text, True, (255, 255, 255))
         screen.blit(scoreboard_surface, (10, 680))
+        screen.blit(goalscore_surface, (10, 720))
+
+        # Check if the player has collected all ingredients for the current dish
+        if set(ingredients_collected) == set(MainCookingDish.ingredients):
+            # Reset the game
+            reset_game()
+
 
     # background
-    # screen.fill((0,0,0))
-    # rollingBack()
     screen.blit(font.render("Chef Alex", True, (255, 255, 255)), (0, 0))
     screen.blit(font.render("Timer: " + str(math.floor(minutes) + (math.floor(seconds))), True, (255, 255, 255)),
                 ((screenx - 160), 10))
