@@ -108,7 +108,7 @@ ingredients = [
     Ingredient(dough_image, "dough")
 ]
 
-wrongIngredients = []
+
 # add player and background image
 player = Player()
 background_image = pygame.transform.scale(background_image, (screenx, screeny))
@@ -118,6 +118,7 @@ minutes = 0
 score = 0
 MaxFrame = 60
 Dish = [burger, croissant, eggs_bacon]
+wrongIngredients = []
 
 # w, h = background_image.get_size()
 
@@ -132,6 +133,8 @@ while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
+
+
     screen.blit(background_image, (0, 0))
 
 
