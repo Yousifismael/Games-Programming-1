@@ -119,7 +119,7 @@ score = 0
 MaxFrame = 60
 Dish = [burger, croissant, eggs_bacon]
 wrongIngredients = []
-
+MainCookingDish = random.choice(Dish)
 # w, h = background_image.get_size()
 
 
@@ -157,12 +157,23 @@ while True:
 
 
 
-    MainCookingDish = random.choice(Dish)
+    # blitting the recipe that the player has to cook
+
+    if MainCookingDish == burger:
+        screen.blit(burger.image, (burger.xpos, burger.ypos))
+    elif MainCookingDish == croissant:
+        screen.blit(croissant.image, (croissant.xpos, croissant.ypos))
+    elif MainCookingDish == eggs_bacon:
+        screen.blit(eggs_bacon.image, (eggs_bacon.xpos, eggs_bacon.ypos))
+
+
+
 
     for ingredient in ingredients:
         if player.rect.colliderect(ingredient.rect):
             # Check if the collected ingredient is required for any main dish
             for dish in [MainCookingDish]:
+
                 if ingredient.name in dish.ingredients:
                     # Increase score for collecting the right ingredient
                     score += 10
@@ -177,9 +188,9 @@ while True:
                     print("new list: ", wrongIngredients)
                     break
 
-    screen.blit(burger.image, (burger.xpos, burger.ypos))
-    screen.blit(croissant.image, (croissant.xpos, croissant.ypos))
-    screen.blit(eggs_bacon.image, (eggs_bacon.xpos, eggs_bacon.ypos))
+
+
+
     ingredients_collected = ()
     # Draw ingredients
     for ingredient in ingredients:
