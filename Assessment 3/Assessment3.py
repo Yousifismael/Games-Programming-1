@@ -30,6 +30,7 @@ dough_image = pygame.image.load("dough.png").convert_alpha()
 chef_image = pygame.image.load("chef.jpeg").convert_alpha()
 
 background_image = pygame.image.load("garden.jpeg")
+Victory_image = pygame.image.load("Victory.png").convert_alpha()
 font = pygame.font.Font(None, 48)
 
 
@@ -112,7 +113,7 @@ ingredients = [
 # add player and background image
 player = Player()
 background_image = pygame.transform.scale(background_image, (screenx, screeny))
-timer = 0
+timerr = 0
 seconds = 0
 minutes = 0
 score = 0
@@ -138,6 +139,7 @@ def reset_game():
     ingredients_collected = []
 
 
+
 # Game Loop
 while True:
     clock.tick(MaxFrame)
@@ -145,6 +147,7 @@ while True:
     timer -= (1 / MaxFrame)
     if timer <= 0:
         reset_game()
+        score = 0
         timer = 50
     seconds = timer % 60
     minutes = (seconds / 60) % 60
@@ -156,6 +159,7 @@ while True:
 
 
     screen.blit(background_image, (0, 0))
+
 
 
 
@@ -177,7 +181,7 @@ while True:
 
 
 
-    # blitting the recipe that the player has to cook
+    # Drawing the recipe that the player has to cook
 
     if MainCookingDish == burger:
         screen.blit(burger.image, (burger.xpos, burger.ypos))
@@ -195,13 +199,13 @@ while True:
             for dish in [MainCookingDish]:
 
                 if ingredient.name in dish.ingredients:
-                    # Increase score for collecting the right ingredient
+                    # Increasing score for collecting the right ingredient
                     score += 10
                     print("Collected", ingredient.name)
                     # Remove the collected ingredient from the screen
                     ingredients.remove(ingredient)
                     ingredients_collected.append(ingredient.name)
-                    break  # Exit the loop once an ingredient is collected
+                    break
                 else:
                     score -= 10
 
@@ -212,17 +216,24 @@ while True:
 
 
 
+ # win condition
+    if score == 200:
+        screen.blit(Victory_image, (-100, -100))
+        pygame.display.flip()
+        pygame.time.wait(4000)
+        sys.exit()
 
 
     # Draw ingredients
     for ingredient in ingredients:
         screen.blit(ingredient.image, ingredient.rect)
 
+
         # Draw scoreboard
 
 
         scoreboard_text = "Score: " + str(score)
-        goalscore_text = "Goal: 300"
+        goalscore_text = "Goal: 200"
         goalscore_surface = font.render(goalscore_text, True, (255, 255, 255))
         scoreboard_surface = font.render(scoreboard_text, True, (255, 255, 255))
         screen.blit(scoreboard_surface, (10, 680))
@@ -230,8 +241,8 @@ while True:
 
         # Check if the player has collected all ingredients for the current dish
         if set(ingredients_collected) == set(MainCookingDish.ingredients):
-            # Reset the game
             reset_game()
+
 
 
     # background
