@@ -14,7 +14,7 @@ clock = pygame.time.Clock()
 
 # assets
 # Main Dishes
-burger_image = pygame.image.load("burger.png").convert_alpha()
+burger_image = pygame.image.load("burger1.png").convert_alpha()
 croissant_image = pygame.image.load("Croissant1.png").convert_alpha()
 eggs_bacon_image = pygame.image.load("Eggs&Bacon.png").convert_alpha()
 
@@ -24,7 +24,7 @@ bread_image = pygame.image.load("bread1.png").convert_alpha()
 cheese_image = pygame.image.load("cheese1.png").convert_alpha()
 eggs_image = pygame.image.load("eggs.png").convert_alpha()
 meat_image = pygame.image.load("meat1.png").convert_alpha()
-dough_image = pygame.image.load("dough.png").convert_alpha()
+dough_image = pygame.image.load("dough1.png").convert_alpha()
 
 # Player
 chef_image = pygame.image.load("chef1.png").convert_alpha()
