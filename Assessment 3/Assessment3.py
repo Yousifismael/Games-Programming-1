@@ -2,9 +2,11 @@ import pygame, sys, math
 from random import randrange
 import random
 
+
+pygame.init()
 pygame.font.get_fonts()
 pygame.mixer.pre_init(44100, -16, 2, 2048)
-pygame.init()
+
 pygame.display.set_caption("Cooking game")
 
 screenx = 1520
@@ -32,6 +34,8 @@ chef_image = pygame.image.load("chef1.png").convert_alpha()
 background_image = pygame.image.load("garden.jpeg")
 Victory_image = pygame.image.load("Victory.png").convert_alpha()
 font = pygame.font.Font(None, 48)
+
+pygame.mixer.music.load("Cooking.mp3")
 
 
 # define Cloud
@@ -145,6 +149,7 @@ Eggs_Bacon_ingredients = "Eggs, Bacon"
 
 # Game Loop
 while True:
+
     clock.tick(MaxFrame)
     #timer += (1 / MaxFrame)
     timer -= (1 / MaxFrame)
@@ -244,8 +249,7 @@ while True:
         goalscore_text = "Goal: 200"
         goalscore_surface = font.render(goalscore_text, True, (255, 255, 255))
         scoreboard_surface = font.render(scoreboard_text, True, (255, 255, 255))
-        screen.blit(scoreboard_surface, (10, 680))
-        screen.blit(goalscore_surface, (10, 720))
+
 
         # Check if the player has collected all ingredients for the current dish
         if set(ingredients_collected) == set(MainCookingDish.ingredients):
@@ -258,6 +262,9 @@ while True:
     screen.blit(font.render("Timer: " + str(math.floor(minutes) + (math.floor(seconds))), True, (255, 255, 255)),
                 ((screenx - 160), 10))
     # screen.blit(font.render())
+    screen.blit(scoreboard_surface, (10, 680))
+    screen.blit(goalscore_surface, (10, 720))
+    pygame.mixer.music.play()
 
     # player
     player.Draw()
