@@ -15,19 +15,19 @@ clock = pygame.time.Clock()
 # assets
 # Main Dishes
 burger_image = pygame.image.load("burger.png").convert_alpha()
-croissant_image = pygame.image.load("Croissant.png").convert_alpha()
+croissant_image = pygame.image.load("Croissant1.png").convert_alpha()
 eggs_bacon_image = pygame.image.load("Eggs&Bacon.png").convert_alpha()
 
 # Ingredients
-bacon_image = pygame.image.load("bacon.png").convert_alpha()
-bread_image = pygame.image.load("bread.png").convert_alpha()
-cheese_image = pygame.image.load("cheese.png").convert_alpha()
+bacon_image = pygame.image.load("bacon1.png").convert_alpha()
+bread_image = pygame.image.load("bread1.png").convert_alpha()
+cheese_image = pygame.image.load("cheese1.png").convert_alpha()
 eggs_image = pygame.image.load("eggs.png").convert_alpha()
-meat_image = pygame.image.load("meat.png").convert_alpha()
+meat_image = pygame.image.load("meat1.png").convert_alpha()
 dough_image = pygame.image.load("dough.png").convert_alpha()
 
 # Player
-chef_image = pygame.image.load("chef.jpeg").convert_alpha()
+chef_image = pygame.image.load("chef1.png").convert_alpha()
 
 background_image = pygame.image.load("garden.jpeg")
 Victory_image = pygame.image.load("Victory.png").convert_alpha()
@@ -138,6 +138,9 @@ def reset_game():
     ]
     ingredients_collected = []
 
+burger_ingredients = "Meat, Cheese, Bread"
+Croissant_ingredients = "Dough, Cheese"
+Eggs_Bacon_ingredients = "Eggs, Bacon"
 
 
 # Game Loop
@@ -180,15 +183,20 @@ while True:
 
 
 
-
     # Drawing the recipe that the player has to cook
-
     if MainCookingDish == burger:
         screen.blit(burger.image, (burger.xpos, burger.ypos))
+        Burger_surface = font.render(burger_ingredients, True, (255, 255, 255))
+        screen.blit(Burger_surface, (1050, 720))
+
     elif MainCookingDish == croissant:
         screen.blit(croissant.image, (croissant.xpos, croissant.ypos))
+        Croissant_surface = font.render(Croissant_ingredients, True, (255, 255, 255))
+        screen.blit(Croissant_surface, (1150, 720))
     elif MainCookingDish == eggs_bacon:
         screen.blit(eggs_bacon.image, (eggs_bacon.xpos, eggs_bacon.ypos))
+        Eggs_Bacon_surface = font.render(Eggs_Bacon_ingredients, True, (255, 255, 255))
+        screen.blit(Eggs_Bacon_surface, (1200, 720))
 
 
 
